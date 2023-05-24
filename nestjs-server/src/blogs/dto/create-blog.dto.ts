@@ -1,20 +1,8 @@
-import { IsAlphanumeric, IsNotEmpty, IsString } from 'class-validator';
-
-export class CreateBlogDto {
-  @IsNotEmpty()
-  @IsString()
+export class BlogDto {
   id: string;
-  @IsNotEmpty()
-  @IsString()
   author: string;
-  avatar?: string | null;
-  @IsNotEmpty()
-  @IsString()
+  avatar: string;
   title: string;
-  @IsNotEmpty()
-  @IsString()
   content: string;
-  @IsNotEmpty()
-  @IsAlphanumeric()
   created: number;
 }

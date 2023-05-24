@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
 import { Request } from 'express';
-import { CreateBlogDto } from 'src/blogs/dto/create-blog.dto';
+import { BlogDto } from 'src/blogs/dto/create-blog.dto';
 import { Blog } from 'src/blogs/interface/blog.inteface';
 import { BlogService } from 'src/blogs/blog.service';
 
@@ -25,9 +25,10 @@ export class BlogController {
   }
 
   @Post()
-  create(@Body() createBlogDto: CreateBlogDto): CreateBlogDto {
+  async create(@Body() createBlogDto: BlogDto): Promise<Blog> {
     // generate random date
     createBlogDto.created = Date.now();
-    return createBlogDto;
+    createBlogDto.id = Math.random().toString(36);
+    return this.blogService.create(createBlogDto);
   }
 }

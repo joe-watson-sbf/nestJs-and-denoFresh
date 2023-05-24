@@ -1,31 +1,41 @@
 import { Injectable } from '@nestjs/common';
-import { Blog } from 'src/blogs/interface/blog.inteface';
+import { Blog, BlogDocument } from './schemas/blog.schema';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { BlogDto } from './dto/create-blog.dto';
 
 @Injectable()
 export class BlogService {
-  private readonly blogs: Blog[] = [];
+  constructor(
+    @InjectModel(Blog.name) private readonly blogModel: Model<BlogDocument>,
+  ) {}
 
-  create(blog: Blog): void {
-    this.blogs.push(blog);
+  create(blog: BlogDto): Promise<Blog> {
+    blog.created = Date.now();
+    const createdBlog = new this.blogModel(blog);
+    return createdBlog.save();
   }
 
-  findAll(): Blog[] {
-    return this.blogs;
+  async findAll(): Promise<Blog[]> {
+    return this.blogModel.find().exec();
   }
 
-  findOne(id: string): Blog {
-    return this.blogs.find((blog) => blog.id === id);
+  async findOne(id: string): Promise<Blog> {
+    return this.blogModel.findById(id).exec();
   }
 
-  update(id: string, blog: Blog): Blog {
-    const index = this.blogs.findIndex((blog) => blog.id === id);
-    this.blogs[index] = blog;
-    return blog;
+  async update(id: string, blog: Blog): Promise<Blog> {
+    const blogFound = this.blogModel.findById(id).exec();
+    if (!blogFound) {
+      return null;
+    }
+    const updateBlog = this.blogModel.updateOne({ id }, blog).exec();
+
+    return updateBlog.then();
   }
 
-  delete(id: string): Blog[] {
-    const index = this.blogs.findIndex((blog) => blog.id === id);
-    this.blogs.splice(index, 1);
-    return this.blogs;
+  delete(id: string): string {
+    this.blogModel.deleteOne({ id }).exec();
+    return `Blog ${id} deleted`;
   }
 }
