@@ -1,0 +1,30 @@
+{
+  "name": "nest-js-and-deno-fresh",
+  "version": "1.0.0",
+  "description": "A fullstack app using NestJS and Deno Fresh",
+  "main": "index.js",
+  "scripts": {
+    "client": "deno task start --prefix blog-client",
+    "server": "npm run start --prefix blog-server",
+    "install-server": "npm install --prefix blog-server",
+    "install-client": "deno task install --prefix blog-client",
+    "install": "npm run install-server && npm run install-client",
+    "start": "npm run client && npm run server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joe-watson-sbf/nestJs-and-denoFresh.git"
+  },
+  "keywords": [
+    "Deno",
+    "Deno",
+    "Fresh",
+    "NestJs"
+  ],
+  "author": "Joe Watson SBF",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joe-watson-sbf/nestJs-and-denoFresh/issues"
+  },
+  "homepage": "https://github.com/joe-watson-sbf/nestJs-and-denoFresh#readme"
+}
