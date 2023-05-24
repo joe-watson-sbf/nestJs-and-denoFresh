@@ -3,9 +3,9 @@
 /node_modules
 
 
-blog-server/node_modules
-blog-server/dist
-blog-server/.env
+nestjs-server/node_modules
+nestjs-server/dist
+nestjs-server/.env
 blog-client/node_modules
 blog-client/dist
 blog-client/.env
