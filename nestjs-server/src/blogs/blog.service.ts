@@ -10,7 +10,7 @@ export class BlogService {
     @InjectModel(Blog.name) private readonly blogModel: Model<BlogDocument>,
   ) {}
 
-  create(blog: BlogDto): Promise<Blog> {
+  async create(blog: BlogDto): Promise<Blog> {
     blog.created = Date.now();
     const createdBlog = new this.blogModel(blog);
     return createdBlog.save();

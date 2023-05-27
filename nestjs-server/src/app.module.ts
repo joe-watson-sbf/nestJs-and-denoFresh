@@ -5,11 +5,13 @@ import { BlogModule } from './blogs/blogs.module';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
+import { UserModule } from './users/users.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     BlogModule,
+    UserModule,
     MongooseModule.forRoot(process.env.MONGO_URI),
   ],
   controllers: [AppController],
